@@ -1,0 +1,108 @@
+[gd_scene load_steps=16 format=3 uid="uid://l48rc3oiw44x"]
+
+[ext_resource type="Texture2D" uid="uid://br0c8kq64rgju" path="res://assets/Tileset.png" id="1_ajuaf"]
+[ext_resource type="Script" path="res://src/entities/enemies/imp.gd" id="1_qhee7"]
+[ext_resource type="PackedScene" uid="uid://byjvsuw3dinlk" path="res://src/entities/hurtbox.tscn" id="3_85rwv"]
+[ext_resource type="PackedScene" uid="uid://cgly0sxsytdd1" path="res://src/entities/health_component.tscn" id="4_ecp6e"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s384t"]
+radius = 2.0
+height = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyvui"]
+atlas = ExtResource("1_ajuaf")
+region = Rect2(368, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fst6r"]
+atlas = ExtResource("1_ajuaf")
+region = Rect2(384, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccv2o"]
+atlas = ExtResource("1_ajuaf")
+region = Rect2(400, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_woy55"]
+atlas = ExtResource("1_ajuaf")
+region = Rect2(416, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gy7xx"]
+atlas = ExtResource("1_ajuaf")
+region = Rect2(432, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yasqn"]
+atlas = ExtResource("1_ajuaf")
+region = Rect2(448, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sw4xw"]
+atlas = ExtResource("1_ajuaf")
+region = Rect2(464, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyp7o"]
+atlas = ExtResource("1_ajuaf")
+region = Rect2(480, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ekc5k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyvui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fst6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ccv2o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_woy55")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gy7xx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yasqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sw4xw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyp7o")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3d5ph"]
+size = Vector2(7, 8)
+
+[node name="Imp" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 27
+motion_mode = 1
+script = ExtResource("1_qhee7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_s384t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_ekc5k")
+animation = &"run"
+
+[node name="Hurtbox" parent="." instance=ExtResource("3_85rwv")]
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0.5, -4)
+shape = SubResource("RectangleShape2D_3d5ph")
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_ecp6e")]
+MAX_HEALTH = 10.0
+
+[editable path="Hurtbox"]

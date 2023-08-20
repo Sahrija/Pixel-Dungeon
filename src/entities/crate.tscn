@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://y750ngqm56et"]
+
+[ext_resource type="Script" path="res://src/entities/crate.gd" id="1_ckml3"]
+[ext_resource type="Texture2D" uid="uid://b3qh77rbr2p73" path="res://assets/frames/crate.png" id="1_e1the"]
+[ext_resource type="PackedScene" uid="uid://byjvsuw3dinlk" path="res://src/entities/hurtbox.tscn" id="3_hnsws"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_efii3"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2clqq"]
+size = Vector2(12, 12)
+
+[node name="Crate" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_ckml3")
+
+[node name="Crate" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("1_e1the")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_efii3")
+
+[node name="Hurtbox" parent="." instance=ExtResource("3_hnsws")]
+collision_layer = 16
+collision_mask = 18
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_2clqq")
+
+[editable path="Hurtbox"]
